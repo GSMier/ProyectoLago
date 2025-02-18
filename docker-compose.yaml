@@ -1,0 +1,436 @@
+networks:
+  test:
+    driver: bridge
+volumes:
+  orderer0:
+  orderer1:
+  orderer2:
+  peer0.uis:
+  peer1.uis:
+  peer2.uis:
+  peer0.espoch:
+  peer1.espoch:
+  peer2.espoch:
+services:
+  orderer0:
+    container_name: ${ORDERER0_HOST}
+    image: hyperledger/fabric-orderer:2.5.0
+    dns_search: .
+    environment:
+      - FABRIC_LOGGING_SPEC=INFO
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_LOCALMSPID=${ORG_ORDERER_MSPID}
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+
+      #* TLS
+      - ORDERER_GENERAL_TLS_ENABLED=true
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+      - ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+
+
+      - ORDERER_GENERAL_BOOTSTRAPMETHOD=none
+      - ORDERER_CHANNELPARTICIPATION_ENABLED=true
+      - ORDERER_ADMIN_TLS_ENABLED=true
+      - ORDERER_ADMIN_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_ADMIN_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key 
+      - ORDERER_ADMIN_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt] 
+      - ORDERER_ADMIN_TLS_CLIENTROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+
+      - ORDERER_METRICS_PROVIDER=prometheus
+      - ORDERER_GENERAL_LISTENPORT=${ORDERER0_PORT_GENERAL}
+      - ORDERER_ADMIN_LISTENADDRESS=0.0.0.0:${ORDERER0_PORT_ADMIN}
+      - ORDERER_OPERATIONS_LISTENADDRESS=${ORDERER0_HOST}:${ORDERER0_PORT_OPERATIONS}
+      # - ORDERER_GENERAL_TLS_TLSHANDSHAKETIMESHIFT=200h
+      # - ORDERER_GENERAL_CLUSTER_TLSHANDSHAKETIMESHIFT=200h
+      # - ORDERER_GENERAL_AUTHENTICATION_NOEXPIRATIONCHECKS=true
+    working_dir: /root  
+    command: orderer
+    ports:
+      - ${ORDERER0_PORT_GENERAL}:${ORDERER0_PORT_GENERAL}
+      - ${ORDERER0_PORT_ADMIN}:${ORDERER0_PORT_ADMIN}
+      - ${ORDERER0_PORT_OPERATIONS}:${ORDERER0_PORT_OPERATIONS}
+    networks:
+      - test
+    volumes:
+      - ./channel/crypto-config/ordererOrganizations/${ORG_ORDERER_NAME}/orderers/${ORDERER0_HOST}/msp:/var/hyperledger/orderer/msp
+      - ./channel/crypto-config/ordererOrganizations/${ORG_ORDERER_NAME}/orderers/${ORDERER0_HOST}/tls:/var/hyperledger/orderer/tls
+      - orderer0:/var/hyperledger/production/orderer
+
+  orderer1:
+    container_name: ${ORDERER1_HOST}
+    image: hyperledger/fabric-orderer:2.5.0
+    dns_search: .
+    environment:
+      - FABRIC_LOGGING_SPEC=INFO
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_LOCALMSPID=${ORG_ORDERER_MSPID}
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+  
+      #* TLS
+      - ORDERER_GENERAL_TLS_ENABLED=true
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+      - ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+  
+      - ORDERER_GENERAL_BOOTSTRAPMETHOD=none
+      - ORDERER_CHANNELPARTICIPATION_ENABLED=true
+      - ORDERER_ADMIN_TLS_ENABLED=true
+      - ORDERER_ADMIN_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_ADMIN_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key 
+      - ORDERER_ADMIN_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt] 
+      - ORDERER_ADMIN_TLS_CLIENTROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+  
+      - ORDERER_METRICS_PROVIDER=prometheus
+      - ORDERER_GENERAL_LISTENPORT=${ORDERER1_PORT_GENERAL}
+      - ORDERER_ADMIN_LISTENADDRESS=0.0.0.0:${ORDERER1_PORT_ADMIN}
+      - ORDERER_OPERATIONS_LISTENADDRESS=${ORDERER1_HOST}:${ORDERER1_PORT_OPERATIONS}
+      # - ORDERER_GENERAL_TLS_TLSHANDSHAKETIMESHIFT=200h
+      # - ORDERER_GENERAL_CLUSTER_TLSHANDSHAKETIMESHIFT=200h
+      # - ORDERER_GENERAL_AUTHENTICATION_NOEXPIRATIONCHECKS=true
+    working_dir: /root  
+    command: orderer
+    ports:
+      - ${ORDERER1_PORT_GENERAL}:${ORDERER1_PORT_GENERAL}
+      - ${ORDERER1_PORT_ADMIN}:${ORDERER1_PORT_ADMIN}
+      - ${ORDERER1_PORT_OPERATIONS}:${ORDERER1_PORT_OPERATIONS}
+    networks:
+      - test
+    volumes:
+      - ./channel/crypto-config/ordererOrganizations/${ORG_ORDERER_NAME}/orderers/${ORDERER1_HOST}/msp:/var/hyperledger/orderer/msp
+      - ./channel/crypto-config/ordererOrganizations/${ORG_ORDERER_NAME}/orderers/${ORDERER1_HOST}/tls:/var/hyperledger/orderer/tls
+      - orderer1:/var/hyperledger/production/orderer
+
+
+  orderer2:
+    container_name: ${ORDERER2_HOST}
+    image: hyperledger/fabric-orderer:2.5.0
+    dns_search: .
+    environment:
+      - FABRIC_LOGGING_SPEC=INFO
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_LOCALMSPID=${ORG_ORDERER_MSPID}
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+  
+      #* TLS
+      - ORDERER_GENERAL_TLS_ENABLED=true
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+      - ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+  
+      - ORDERER_GENERAL_BOOTSTRAPMETHOD=none
+      - ORDERER_CHANNELPARTICIPATION_ENABLED=true
+      - ORDERER_ADMIN_TLS_ENABLED=true
+      - ORDERER_ADMIN_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_ADMIN_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key 
+      - ORDERER_ADMIN_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt] 
+      - ORDERER_ADMIN_TLS_CLIENTROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+  
+      - ORDERER_METRICS_PROVIDER=prometheus
+      - ORDERER_GENERAL_LISTENPORT=${ORDERER2_PORT_GENERAL}
+      - ORDERER_ADMIN_LISTENADDRESS=0.0.0.0:${ORDERER2_PORT_ADMIN}
+      - ORDERER_OPERATIONS_LISTENADDRESS=${ORDERER2_HOST}:${ORDERER2_PORT_OPERATIONS}
+      # - ORDERER_GENERAL_TLS_TLSHANDSHAKETIMESHIFT=200h
+      # - ORDERER_GENERAL_CLUSTER_TLSHANDSHAKETIMESHIFT=200h
+      # - ORDERER_GENERAL_AUTHENTICATION_NOEXPIRATIONCHECKS=true
+    working_dir: /root  
+    command: orderer
+    ports:
+      - ${ORDERER2_PORT_GENERAL}:${ORDERER2_PORT_GENERAL}
+      - ${ORDERER2_PORT_ADMIN}:${ORDERER2_PORT_ADMIN}
+      - ${ORDERER2_PORT_OPERATIONS}:${ORDERER2_PORT_OPERATIONS}
+    networks:
+      - test
+    volumes:
+      - ./channel/crypto-config/ordererOrganizations/${ORG_ORDERER_NAME}/orderers/${ORDERER2_HOST}/msp:/var/hyperledger/orderer/msp
+      - ./channel/crypto-config/ordererOrganizations/${ORG_ORDERER_NAME}/orderers/${ORDERER2_HOST}/tls:/var/hyperledger/orderer/tls
+      - orderer2:/var/hyperledger/production/orderer
+
+
+
+  peer0.uis.couchdb:
+    container_name: ${PEER0_ORG0_COUCHDB_HOST}
+    image: couchdb:3.1.1
+    environment:
+      - COUCHDB_USER=${PEER0_ORG0_COUCHDB_USER}
+      - COUCHDB_PASSWORD=${PEER0_ORG0_COUCHDB_PW}
+    ports:
+      - ${PEER0_ORG0_COUCHDB_PORT}:5984
+    networks:
+      - test
+
+  peer0.uis:
+    container_name: ${PEER0_ORG0_HOST}
+    image: hyperledger/fabric-peer:2.5.0
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - FABRIC_LOGGING_SPEC=info
+      - ORDERER_GENERAL_LOGLEVEL=info
+      - CORE_PEER_LOCALMSPID=${ORG0_MSPID}
+
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=blockchain_test
+
+      - CORE_PEER_ID=${PEER0_ORG0_NAME}
+      - CORE_PEER_ADDRESS=${PEER0_ORG0_HOST}:${PEER0_ORG0_PORT_GENERAL}
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:${PEER0_ORG0_PORT_GENERAL}
+      - CORE_PEER_CHAINCODEADDRESS=${PEER0_ORG0_HOST}:${PEER0_ORG0_PORT_CHAINCODE}
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:${PEER0_ORG0_PORT_CHAINCODE}
+
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=${PEER0_ORG0_HOST}:${PEER0_ORG0_PORT_GENERAL}
+
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=${PEER0_ORG0_COUCHDB_HOST}:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=${PEER0_ORG0_COUCHDB_USER}
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=${PEER0_ORG0_COUCHDB_PW}
+      - CORE_METRICS_PROVIDER=prometheus
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/crypto/peer/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/crypto/peer/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/crypto/peer/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/crypto/peer/msp
+    depends_on:
+      - peer0.uis.couchdb
+    ports:
+      - ${PEER0_ORG0_PORT_GENERAL}:${PEER0_ORG0_PORT_GENERAL}
+    volumes:
+      - ./channel/crypto-config/peerOrganizations/${ORG0_NAME}/peers/${PEER0_ORG0_NAME}/msp:/etc/hyperledger/crypto/peer/msp
+      - ./channel/crypto-config/peerOrganizations/${ORG0_NAME}/peers/${PEER0_ORG0_NAME}/tls:/etc/hyperledger/crypto/peer/tls
+      - /var/run/:/host/var/run/
+      - peer0.uis:/var/hyperledger/production
+      # - ./channel/:/etc/hyperledger/channel/
+    networks:
+      - test
+
+  peer1.uis:
+    container_name: ${PEER1_ORG0_HOST}
+    image: hyperledger/fabric-peer:2.5.0
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - FABRIC_LOGGING_SPEC=info
+      - ORDERER_GENERAL_LOGLEVEL=info
+      - CORE_PEER_LOCALMSPID=${ORG0_MSPID}
+
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=blockchain_test
+
+      - CORE_PEER_ID=${PEER1_ORG0_NAME}
+      - CORE_PEER_ADDRESS=${PEER1_ORG0_HOST}:${PEER1_ORG0_PORT_GENERAL}
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:${PEER1_ORG0_PORT_GENERAL}
+      - CORE_PEER_CHAINCODEADDRESS=${PEER1_ORG0_HOST}:${PEER1_ORG0_PORT_CHAINCODE}
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:${PEER1_ORG0_PORT_CHAINCODE}
+
+      # Gossip settings
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=${PEER1_ORG0_HOST}:${PEER1_ORG0_PORT_GENERAL}
+      - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
+      - CORE_PEER_GOSSIP_BOOTSTRAP=${PEER0_ORG0_HOST}:${PEER0_ORG0_PORT_GENERAL}
+
+      - CORE_METRICS_PROVIDER=prometheus
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/crypto/peer/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/crypto/peer/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/crypto/peer/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/crypto/peer/msp
+    ports:
+      - ${PEER1_ORG0_PORT_GENERAL}:${PEER1_ORG0_PORT_GENERAL}
+    volumes:
+      - ./channel/crypto-config/peerOrganizations/${ORG0_NAME}/peers/${PEER1_ORG0_NAME}/msp:/etc/hyperledger/crypto/peer/msp
+      - ./channel/crypto-config/peerOrganizations/${ORG0_NAME}/peers/${PEER1_ORG0_NAME}/tls:/etc/hyperledger/crypto/peer/tls
+      - /var/run/:/host/var/run/
+      - peer1.uis:/var/hyperledger/production
+
+    networks:
+      - test
+
+  peer2.uis:
+    container_name: ${PEER2_ORG0_HOST}
+    image: hyperledger/fabric-peer:2.5.0
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - FABRIC_LOGGING_SPEC=info
+      - ORDERER_GENERAL_LOGLEVEL=info
+      - CORE_PEER_LOCALMSPID=${ORG0_MSPID}
+
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=blockchain_test
+
+      - CORE_PEER_ID=${PEER2_ORG0_NAME}
+      - CORE_PEER_ADDRESS=${PEER2_ORG0_HOST}:${PEER2_ORG0_PORT_GENERAL}
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:${PEER2_ORG0_PORT_GENERAL}
+      - CORE_PEER_CHAINCODEADDRESS=${PEER2_ORG0_HOST}:${PEER2_ORG0_PORT_CHAINCODE}
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:${PEER2_ORG0_PORT_CHAINCODE}
+
+      # Gossip settings
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=${PEER2_ORG0_HOST}:${PEER2_ORG0_PORT_GENERAL}
+      - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
+      - CORE_PEER_GOSSIP_BOOTSTRAP=${PEER0_ORG0_HOST}:${PEER0_ORG0_PORT_GENERAL}
+
+      - CORE_METRICS_PROVIDER=prometheus
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/crypto/peer/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/crypto/peer/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/crypto/peer/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/crypto/peer/msp
+    ports:
+      - ${PEER2_ORG0_PORT_GENERAL}:${PEER2_ORG0_PORT_GENERAL}
+    volumes:
+      - ./channel/crypto-config/peerOrganizations/${ORG0_NAME}/peers/${PEER2_ORG0_NAME}/msp:/etc/hyperledger/crypto/peer/msp
+      - ./channel/crypto-config/peerOrganizations/${ORG0_NAME}/peers/${PEER2_ORG0_NAME}/tls:/etc/hyperledger/crypto/peer/tls
+      - /var/run/:/host/var/run/
+      - peer2.uis:/var/hyperledger/production
+
+    networks:
+      - test
+
+  peer0.espoch.couchdb:
+    container_name: ${PEER0_ORG1_COUCHDB_HOST}
+    image: couchdb:3.1.1
+    environment:
+      - COUCHDB_USER=${PEER0_ORG1_COUCHDB_USER}
+      - COUCHDB_PASSWORD=${PEER0_ORG1_COUCHDB_PW}
+    ports:
+      - ${PEER0_ORG1_COUCHDB_PORT}:5984
+    networks:
+      - test
+
+  peer0.espoch:
+    container_name: ${PEER0_ORG1_HOST}
+    image: hyperledger/fabric-peer:2.5.0
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - FABRIC_LOGGING_SPEC=info
+      - ORDERER_GENERAL_LOGLEVEL=info
+      - CORE_PEER_LOCALMSPID=${ORG1_MSPID}
+
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=blockchain_test
+
+      - CORE_PEER_ID=${PEER0_ORG1_NAME}
+      - CORE_PEER_ADDRESS=${PEER0_ORG1_HOST}:${PEER0_ORG1_PORT_GENERAL}
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:${PEER0_ORG1_PORT_GENERAL}
+      - CORE_PEER_CHAINCODEADDRESS=${PEER0_ORG1_HOST}:${PEER0_ORG1_PORT_CHAINCODE}
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:${PEER0_ORG1_PORT_CHAINCODE}
+
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=${PEER0_ORG1_HOST}:${PEER0_ORG1_PORT_GENERAL}
+
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=${PEER0_ORG1_COUCHDB_HOST}:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=${PEER0_ORG1_COUCHDB_USER}
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=${PEER0_ORG1_COUCHDB_PW}
+      - CORE_METRICS_PROVIDER=prometheus
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/crypto/peer/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/crypto/peer/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/crypto/peer/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/crypto/peer/msp
+    depends_on:
+      - peer0.espoch.couchdb
+    ports:
+      - ${PEER0_ORG1_PORT_GENERAL}:${PEER0_ORG1_PORT_GENERAL}
+    volumes:
+      - ./channel/crypto-config/peerOrganizations/${ORG1_NAME}/peers/${PEER0_ORG1_NAME}/msp:/etc/hyperledger/crypto/peer/msp
+      - ./channel/crypto-config/peerOrganizations/${ORG1_NAME}/peers/${PEER0_ORG1_NAME}/tls:/etc/hyperledger/crypto/peer/tls
+      - /var/run/:/host/var/run/
+      - peer0.espoch:/var/hyperledger/production
+
+      # - /var/pavan/peer0-espoch:/var/hyperledger/production
+      # - ./channel/:/etc/hyperledger/channel/
+    networks:
+      - test
+
+  peer1.espoch:
+    container_name: ${PEER1_ORG1_HOST}
+    image: hyperledger/fabric-peer:2.5.0
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - FABRIC_LOGGING_SPEC=info
+      - ORDERER_GENERAL_LOGLEVEL=info
+      - CORE_PEER_LOCALMSPID=${ORG1_MSPID}
+
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=blockchain_test
+
+      - CORE_PEER_ID=${PEER1_ORG1_NAME}
+      - CORE_PEER_ADDRESS=${PEER1_ORG1_HOST}:${PEER1_ORG1_PORT_GENERAL}
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:${PEER1_ORG1_PORT_GENERAL}
+      - CORE_PEER_CHAINCODEADDRESS=${PEER1_ORG1_HOST}:${PEER1_ORG1_PORT_CHAINCODE}
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:${PEER1_ORG1_PORT_CHAINCODE}
+
+      # Gossip settings
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=${PEER1_ORG1_HOST}:${PEER1_ORG1_PORT_GENERAL}
+      - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
+      - CORE_PEER_GOSSIP_BOOTSTRAP=${PEER0_ORG1_HOST}:${PEER0_ORG1_PORT_GENERAL}
+
+      - CORE_METRICS_PROVIDER=prometheus
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/crypto/peer/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/crypto/peer/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/crypto/peer/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/crypto/peer/msp
+    ports:
+      - ${PEER1_ORG1_PORT_GENERAL}:${PEER1_ORG1_PORT_GENERAL}
+    volumes:
+      - ./channel/crypto-config/peerOrganizations/${ORG1_NAME}/peers/${PEER1_ORG1_NAME}/msp:/etc/hyperledger/crypto/peer/msp
+      - ./channel/crypto-config/peerOrganizations/${ORG1_NAME}/peers/${PEER1_ORG1_NAME}/tls:/etc/hyperledger/crypto/peer/tls
+      - /var/run/:/host/var/run/
+      - peer1.espoch:/var/hyperledger/production
+
+    networks:
+      - test
+
+  peer2.espoch:
+    container_name: ${PEER2_ORG1_HOST}
+    image: hyperledger/fabric-peer:2.5.0
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - FABRIC_LOGGING_SPEC=info
+      - ORDERER_GENERAL_LOGLEVEL=info
+      - CORE_PEER_LOCALMSPID=${ORG1_MSPID}
+
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=blockchain_test
+
+      - CORE_PEER_ID=${PEER2_ORG1_NAME}
+      - CORE_PEER_ADDRESS=${PEER2_ORG1_HOST}:${PEER2_ORG1_PORT_GENERAL}
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:${PEER2_ORG1_PORT_GENERAL}
+      - CORE_PEER_CHAINCODEADDRESS=${PEER2_ORG1_HOST}:${PEER2_ORG1_PORT_CHAINCODE}
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:${PEER2_ORG1_PORT_CHAINCODE}
+
+      # Gossip settings
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=${PEER2_ORG1_HOST}:${PEER2_ORG1_PORT_GENERAL}
+      - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
+      - CORE_PEER_GOSSIP_BOOTSTRAP=${PEER0_ORG1_HOST}:${PEER0_ORG1_PORT_GENERAL}
+
+      - CORE_METRICS_PROVIDER=prometheus
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/crypto/peer/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/crypto/peer/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/crypto/peer/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/crypto/peer/msp
+    ports:
+      - ${PEER2_ORG1_PORT_GENERAL}:${PEER2_ORG1_PORT_GENERAL}
+    volumes:
+      - ./channel/crypto-config/peerOrganizations/${ORG1_NAME}/peers/${PEER2_ORG1_NAME}/msp:/etc/hyperledger/crypto/peer/msp
+      - ./channel/crypto-config/peerOrganizations/${ORG1_NAME}/peers/${PEER2_ORG1_NAME}/tls:/etc/hyperledger/crypto/peer/tls
+      - /var/run/:/host/var/run/
+      - peer2.espoch:/var/hyperledger/production
+
+    networks:
+      - test

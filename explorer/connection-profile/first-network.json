@@ -1,0 +1,50 @@
+{
+    "name": "test-network",
+    "version": "1.0.0",
+    "client": {
+      "tlsEnable": true,
+      "adminCredential": {
+        "id": "exploreradmin",
+        "password": "exploreradminpw"
+      },
+      "enableAuthentication": true,
+      "organization": "UISMSP",
+      "connection": {
+        "timeout": {
+          "peer": {
+            "endorser": "300"
+          },
+          "orderer": "300"
+        }
+      }
+    },
+    "channels": {
+      "lagochannel": {
+        "peers": {
+          "peer0.uis": {}
+        }
+      }
+    },
+    "organizations": {
+      "UISMSP": {
+        "mspid": "UISMSP",
+        "adminPrivateKey": {
+          "path": "/etc/data/peerOrganizations/uis/users/admin0-uis/msp/keystore/priv_sk"
+        },  
+        "peers":[
+            "peer0.uis"
+        ],
+        "signedCert": {
+          "path": "/etc/data/peerOrganizations/uis/users/admin0-uis/msp/signcerts/cert.pem"
+        }
+      }
+    },
+    "peers": {
+      "peer0.uis": {
+        "tlsCACerts": {
+          "path": "/etc/data/peerOrganizations/uis/peers/peer0-uis/tls/ca.crt"
+        },
+        "url": "grpcs://peer0.uis:7051"
+      }
+    }
+  }

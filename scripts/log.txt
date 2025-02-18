@@ -1,0 +1,2 @@
+Installed chaincodes on peer:
+Package ID: scientific-data-collection_1:4483846b3379e47b05f0287162e453999e7cf1cc00ed48d6aef3a0af2cb9dc4f, Label: scientific-data-collection_1

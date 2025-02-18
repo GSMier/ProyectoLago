@@ -1,0 +1,14 @@
+/config
+/coverage
+/node_modules
+/notes
+package-lock.json
+result.json
+/integration
+/sample
+/src
+/test
+tsconfig.test.json
+.vscode
+*.tgz
+*.map
