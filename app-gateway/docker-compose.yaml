@@ -1,0 +1,22 @@
+services:
+  app-gateway:
+    container_name: app-gateway-lago
+    image: sebstiian/lago-app-gateway
+    command: sh -c 'npm start verify $$FOLDER_PATH'
+    environment:
+      - PEER_ENDPOINT=peer0.uis:7051
+      - MSP_ID=${ORG0_MSPID}
+      - CERT_DIRECTORY_PATH=/etc/data/${ORG0_NAME}/users/${USER0_ORG0_NAME}/msp/signcerts/
+      - KEY_DIRECTORY_PATH=/etc/data/${ORG0_NAME}/users/${USER0_ORG0_NAME}/msp/keystore/
+      - TLS_CERT_PATH=/etc/data/${ORG0_NAME}/tlsca/tlsca.${ORG0_NAME}-cert.pem
+      - CHANNEL_NAME=lagochannel
+      - CHAINCODE_NAME=scientific-data-collection
+      - PEER_HOST_ALIAS=peer0.uis
+      - JSONFILE=/var/data/prueba.json
+      - FOLDER_PATH=/var/data
+    extra_hosts:
+      - "peer0.uis:host-gateway"
+    volumes:
+      - /root/blockchain/channel/crypto-config/peerOrganizations:/etc/data
+      - /root/blockchain/test-data:/var/data
+      - /root/blockchain/scripts/prueba.json:/var/data/prueba.json

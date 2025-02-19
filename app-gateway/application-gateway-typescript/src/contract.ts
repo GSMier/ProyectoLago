@@ -11,25 +11,27 @@ const RETRIES = 2;
 
 const utf8Decoder = new TextDecoder();
 
-export interface ScientificData {
-  ID?: string;
-  GenerationDate?: string;
-  Metadata?: string;
-  Rawdata?: string;
-  InputData?: string;
-  InputMetadata?: string;
-  OutputData?: string;
-  OutputMetadata?: string;
-  SiteName?: string;
-  CollaboratorName?: string;
-  Orcid?: string;
-  AccesUrl?: string;
+export interface HashLocation{
+  hash: string;
+  location: string
 }
 
-export type ScientificDataCreate = Omit<ScientificData, "ID"> &
-  Partial<ScientificData>;
-export type ScientificDataUpdate = Pick<ScientificData, "ID"> &
-  Partial<Omit<ScientificData, "ID">>;
+export interface ScientificData {
+  Id: string;
+  type: string;
+  generationDate: string;
+  metadata: HashLocation | {primary: HashLocation, secondary: HashLocation};
+  rawData: HashLocation | {primary: HashLocation, secondary: HashLocation};
+  inputData?: HashLocation;
+  inputMetadata?: HashLocation;
+  outputData?: HashLocation;
+  outputMetadata?: HashLocation;
+  siteName: string;
+  collaboratorName?: string;
+  orcid?: string;
+  accesUrl?: string;
+}
+
 
 /**
  * ScientificDataTransfer presents the smart contract in a form appropriate to the business application. Internally it uses the
@@ -43,7 +45,7 @@ export class ScientificDataCollection {
     this.contract = contract;
   }
 
-  async createRecord(data: ScientificDataCreate): Promise<void> {
+  async createRecord(data: ScientificData): Promise<void> {
     await this.contract.submit("CreateRecord", {
       arguments: [JSON.stringify(data)],
     });
@@ -66,12 +68,11 @@ export class ScientificDataCollection {
   }
 
   async updateRecord(
-    id: string,
-    updatedData: ScientificDataUpdate
+    updatedData :Partial<ScientificData>  & Pick<ScientificData, "Id">
   ): Promise<void> {
     await submitWithRetry(() =>
       this.contract.submit("UpdateRecord", {
-        arguments: [id, JSON.stringify(updatedData)],
+        arguments: [JSON.stringify(updatedData)],
       })
     );
   }
@@ -91,7 +92,7 @@ export class ScientificDataCollection {
     return utf8Decoder.decode(result).toLowerCase() === "true";
   }
 
-  async getHistoryForRecord(id: string): Promise<any[]> {
+  async getHistoryForRecord(id: string): Promise<string> {
     const result = await this.contract.evaluate("GetHistoryForRecord", {
       arguments: [id],
     });

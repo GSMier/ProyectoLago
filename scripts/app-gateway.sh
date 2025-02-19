@@ -34,7 +34,10 @@ export PEER_HOST_ALIAS=localhost
 GetAllAssets(){
 
 pushd $APP_SRC_PATH
-    npm start read "ESPOCH_nogps_2016_05_20_00h00"
+    # npm start update /root/blockchain/scripts/prueba.json
+    npm start history S0_bga_10_77402_QGSII_flat_defaults_DAT000703
+    # npm start getAllRecords
+    # npm start delete S0_bga_10_77402_QGSII_flat_defaults_DAT000703
     # npm start update "002" "BlueNew" 5 "Prueba2" 10000
     # npm start create "002" "BlueNew" "Prueba2"
 popd

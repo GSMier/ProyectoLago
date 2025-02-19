@@ -23,7 +23,7 @@ import {
       // Validate input fields
       const exists = await this.RecordExists(ctx, dataObj.Id);
       if (exists) {
-          throw new Error(`The asset ${dataObj.Id} already exists`);
+          throw new Error(`The record ${dataObj.Id} already exists`);
       }
       if (
         !dataObj.Id ||
@@ -56,23 +56,22 @@ import {
     @Transaction()
     public async UpdateRecord(
       ctx: Context,
-      id: string,
       updatedData: string
     ): Promise<void> {
-      const exists = await this.RecordExists(ctx, id);
+      const updatedDataObj: Partial<ScientificData>  & Pick<ScientificData, "Id"> = JSON.parse(updatedData);
+      const exists = await this.RecordExists(ctx, updatedDataObj.Id);
       if (!exists) {
-        throw new Error(`The record ${id} does not exist`);
+        throw new Error(`The record ${updatedDataObj.Id} does not exist`);
       }
   
-      const updatedDataObj: Partial<ScientificData> = JSON.parse(updatedData);
-      const oldDataJson = await ctx.stub.getState(id);
+      const oldDataJson = await ctx.stub.getState(updatedDataObj.Id);
       const oldData = JSON.parse(oldDataJson.toString()) as ScientificData;
       // Update the existing fields
       const newData = { ...oldData, ...updatedDataObj };
   
       // Store the updated data
       await ctx.stub.putState(
-        id,
+        updatedDataObj.Id,
         Buffer.from(stringify(sortKeysRecursive(newData)))
       );
     }

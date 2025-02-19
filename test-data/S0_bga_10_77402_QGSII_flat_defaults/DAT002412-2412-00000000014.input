@@ -1,0 +1,40 @@
+RUNNR       002412
+EVTNR       0
+NSHOW       14
+
+PRMPAR      2412
+ESLOPE      -2.64
+ERANGE      6.4023e+01 1.0000e+06
+THETAP      0 90
+PHIP        -180 180
+
+OBSLEV      95000
+ATMOSPHERE     1 Y
+MAGNET      26.793 16.055
+FIXCHI      0.
+SEED        8861657   0   0
+SEED        5614046   0   0
+SEED        2280979   0   0
+SEED        5201965   0   0
+ECUTS       0.05 0.05 5e-05 5e-05
+
+
+
+MUMULT      T
+MAXPRT      0
+ELMFLG      F   T
+LONGI       F  10.  T  T
+ECTMAP      1.E3
+
+
+DIRECT      /opt/corsika-77402-lago/run//S0_bga_10_77402_QGSII_flat_defaults/
+DATBAS      F
+PAROUT      T F
+ 
+
+ 
+
+ 
+
+USER        0000-0001-6497-753X
+EXIT

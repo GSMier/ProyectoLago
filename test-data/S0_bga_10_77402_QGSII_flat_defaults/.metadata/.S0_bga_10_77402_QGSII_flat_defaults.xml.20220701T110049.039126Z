@@ -1,0 +1,46 @@
+<metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:title>S0_bga_10_77402_QGSII_flat_defaults</dc:title>
+    <dc:creator>A. J. Rubio-Montero</dc:creator>
+    <dc:creator>https://orcid.org/0000-0001-6497-753X</dc:creator>
+    <dc:subject>4.2.5#Physics#Astrophysics and Astronomy</dc:subject>
+    <dc:subject>https://raw.githubusercontent.com/EUDAT-B2FIND/md-ingestion/master/etc/b2find_disciplines.json#4.2.5#Physics#Astrophysics%20and%20Astronomy</dc:subject>
+    <dc:subject>High energy astrophysics</dc:subject>
+    <dc:subject>http://astrothesaurus.org/uat/739</dc:subject>
+    <dc:subject>Particle astrophysics</dc:subject>
+    <dc:subject>http://astrothesaurus.org/uat/96</dc:subject>
+    <dc:subject>Astronomical simulations</dc:subject>
+    <dc:subject>http://astrothesaurus.org/uat/1857</dc:subject>
+    <dc:description> This Catalogue contains a complete LAGO (S0) plain simulation for the LAGO 'bga' site managed by the UIS institution;  located in Bucaramanga, Colombia, on the 7.14 latitude, -73.12 longitude and 956 meters in altitude. Moreover, the data was generated for the geomagnetic field corresponding to the period between 2021-04-08T00:00:00Z and 2021-04-08T00:00:10Z.
+
+ The Datasets are CORSIKA inputs and outputs, which are described in the official documentation ( https://www.iap.kit.edu/corsika/70.php ). These Datasets were generated for a flux time of 10 seconds, following the high energy integration model QGSII, in flat array mode. The default atmosphere (E1) was used for this site. The zenith range used was set to [0,90] degrees. The primary integration energy range used was set to [5,1e6] GeV.
+
+ The completeness of the simulation and the requirements for its storing and publishing was guaranteed by the onedataSim software ( https://github.com/lagoproject/onedataSim ), relying on the ARTI software ( https://github.com/lagoproject/arti ). A detailed description of the type and generation of the Datasets and Metadata contained in this Catalogue is in the Data Management Plan of LAGO at https://lagoproject.github.io/DMP/
+
+ Please, you properly cite this Catalogue with its PiD as well as with the main papers currently listed in the previous pages as reference works.</dc:description>
+    <dc:publisher>EGI DataHub</dc:publisher>
+    <dc:publisher>https://datahub.egi.eu</dc:publisher>
+    <dc:publisher>LAGO Collaboration</dc:publisher>
+    <dc:publisher>https://lagoproject.net/</dc:publisher>
+    <dc:publisher>https://lagoproject.github.io/DMP/defs/lagoCollaboration.1.1/</dc:publisher>
+    <dc:contributor>LAGO Collaboration</dc:contributor>
+    <dc:contributor>https://lagoproject.net/</dc:contributor>
+    <dc:contributor>https://lagoproject.github.io/DMP/defs/lagoCollaboration.1.1/</dc:contributor>
+    <dc:contributor>EOSC-Synergy</dc:contributor>
+    <dc:contributor>European Open Science Cloud-Expanding Capacities by building Capabilities (EOSC-SYNERGY) project</dc:contributor>
+    <dc:contributor>https://www.eosc-synergy.eu/</dc:contributor>
+    <dc:contributor>EOSC-synergy receives funding from the European Union's Horizon 2020 research and innovation programme under grant agreement No 857647</dc:contributor>
+    <dc:contributor>https://cordis.europa.eu/project/id/857647</dc:contributor>
+    <dc:date>2021-04-16T10:54:16.038611Z</dc:date>
+    <dc:type>Collection</dc:type>
+    <dc:format>octet-stream</dc:format>
+    <dc:language>en</dc:language>
+    <dc:coverage xsi:type="dcterms:Spatial">east=7.14; north=-73.12; elevation=956;</dc:coverage>
+    <dc:coverage xsi:type="dcterms:Period">start=2021-04-08T00:00:00Z;end=2021-04-08T00:00:10Z;</dc:coverage>
+    <dc:rights>CC BY-NC-SA 4.0</dc:rights>
+    <dc:rights>https://creativecommons.org/licenses/by-nc-sa/4.0/</dc:rights>
+    <dc:rights>Data and Metadata Release, Rights and Disclaimer</dc:rights>
+    <dc:rights>https://lagoproject.github.io/DMP/rights/lagoCommonRights.1.1/</dc:rights>
+    <dc:rights>https://lagoproject.net/lagoCommonRights/1.1.html</dc:rights>
+    <dc:rights>Access Rights</dc:rights>
+    <dc:rights>http://publications.europa.eu/resource/authority/access-right/RESTRICTED</dc:rights>
+</metadata>

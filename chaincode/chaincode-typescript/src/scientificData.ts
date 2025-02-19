@@ -22,22 +22,22 @@ export class ScientificData {
     public generationDate: string = '';
 
     @Property()
-    public metadata: HashLocation | {primary: string, secondary: string} = { hash: '', location:''};
+    public metadata: HashLocation | {primary: HashLocation, secondary: HashLocation} = { hash: '', location:''};
 
     @Property()
-    public rawData: string | {primary: string, secondary: string} = '';
+    public rawData: HashLocation | {primary: HashLocation, secondary: HashLocation} = { hash: '', location:''};
 
     @Property()
-    public inputData ?: string;
+    public inputData ?: HashLocation;
 
     @Property()
-    public inputMetadata?: string;
+    public inputMetadata?: HashLocation;
 
     @Property()
-    public outputData?: string;
+    public outputData?: HashLocation;
 
     @Property()
-    public outputMetadata?: string;
+    public outputMetadata?: HashLocation;
 
     @Property()
     public siteName: string = '';

@@ -232,7 +232,8 @@ chaincodeInvoke() {
         --peerAddresses localhost:${PEER0_ORG1_PORT_GENERAL} --tlsRootCertFiles $PEER0_ORG1_CA \
         --peerAddresses localhost:${PEER1_ORG1_PORT_GENERAL} --tlsRootCertFiles $PEER1_ORG1_CA \
         --peerAddresses localhost:${PEER2_ORG1_PORT_GENERAL} --tlsRootCertFiles $PEER2_ORG1_CA \
-        -c  '{"function": "CreateRecord","Args":["{\"Id\":\"ESPOCH_nogps_2016_05_20_00h00\",\"type\":\"L0\",\"generationDate\":\"2016 05_20_00:00:00\",\"metadata\":\"7113932e4ca8bbb14dc9b1a5211ecc2d5eedf6a464a1dbf04f801ea070554f55\",\"rawData\":\"60939e3fed5a9a42fbafc9a88642eefaf6d72cb6b365ab290cf70ff3f1d070a0\",\"inputData\":null,\"inputMetadata\":null,\"outputData\":null,\"outputMetadata\":null,\"siteName\":\"\\\"Escuela Superior Politécnica de Chimborazo\\\"\",\"collaboratorName\":\"\\\"Mario Audelo\\\"\",\"orcid\":\"\\\"0000-0000-0000-0000\\\"\",\"accessUrl\":null}"]}' 
+        -c  '{"function": "CreateRecord","Args":["{\"Id\":\"S0_bga_10_77402_QGSII_flat_defaults_DAT000703\",\"type\":\"S0\",\"generationDate\":\"2021-04-16T10:51:59.484880Z\",\"metadata\":{\"hash\":\"0d306e78140af8100682db4a6a9493152a492b5845e663df8625320a372cf246\",\"location\":\"/S0_bga_10_77402_QGSII_flat_defaults/.metadata/.DAT000703.bz2.jsonld.20220701T110100.291889Z\"},\"rawData\":{\"hash\":\"d02d21a138f4ca5eb2cf23873c45e0cd2b6bada836155616206ce3bbb77e3026\",\"location\":\"/S0_bga_10_77402_QGSII_flat_defaults/DAT000703.bz2\"},\"inputData\":{\"hash\":\"47e8ceb1d194c19708cf7953560ef4301b752e5f3eb7c5962afa5b473553fc46\",\"location\":\"/S0_bga_10_77402_QGSII_flat_defaults/DAT000703-0703-00000000024.input\"},\"inputMetadata\":{\"hash\":\"30be9443fdcf95c935ae9401bf34d3e4fe947d33b693e0ae8807c7e9a2e3b934\",\"location\":\"/S0_bga_10_77402_QGSII_flat_defaults/.metadata/.DAT000703-0703-00000000024.input.jsonld.20220701T110055.716745Z\"},\"outputData\":{\"hash\":\"c5c1ac3c1d2dd730d72836354024a7cbdbe05c80ca605b150884f98bb0b550d0\",\"location\":\"/S0_bga_10_77402_QGSII_flat_defaults/DAT000703-0703-00000000024.lst.bz2\"},\"outputMetadata\":{\"hash\":\"b4540c82a72d2413a9ee7366ba6a3a5034d9dad230c0ef8e8d8f018b1e2934bc\",\"location\":\"/S0_bga_10_77402_QGSII_flat_defaults/.metadata/.DAT000703-0703-00000000024.lst.bz2.jsonld.20220701T110057.934361Z\"},\"siteName\":\"bga\",\"orcid\":\"https://orcid.org/0000-0001-6497-753X\",\"accessUrl\":[\"http://hdl.handle.net/21.12145/gi9Hc9c\",\"https://datahub.egi.eu/share/37b0a0d99cbae5791db93ababbef5b90chccda\"]}"
+]}' 
         # -c '{"Args":["CreateRecord",{\"ID\":\"ESPOCH_nogps_2016_05_20_00h00\",\"Type\":\"L0\",\"GenerationDate\":\"2016 05_20_00:00:00\",\"Metadata\":\"7113932e4ca8bbb14dc9b1a5211ecc2d5eedf6a464a1dbf04f801ea070554f55\",\"Rawdata\":\"60939e3fed5a9a42fbafc9a88642eefaf6d72cb6b365ab290cf70ff3f1d070a0\",\"inputData\":null,\"inputMetadata\":null,\"outputData\":null,\"outputMetadata\":null,\"SiteName\":\"\\\"Escuela Superior Politécnica de Chimborazo\\\"\",\"collaboratorName\":\"\\\"Mario Audelo\\\"\",\"orcid\":\"\\\"0000-0000-0000-0000\\\"\",\"accessUrl\":null}"]}'
 
         # --isInit \
@@ -254,7 +255,7 @@ chaincodeInvoke2() {
         --peerAddresses localhost:${PEER0_ORG1_PORT_GENERAL} --tlsRootCertFiles $PEER0_ORG1_CA \
         --peerAddresses localhost:${PEER1_ORG1_PORT_GENERAL} --tlsRootCertFiles $PEER1_ORG1_CA \
         --peerAddresses localhost:${PEER2_ORG1_PORT_GENERAL} --tlsRootCertFiles $PEER2_ORG1_CA \
-        -c  '{"function": "CreateRecord","Args":["{\"Id\":\"S0_bga_10_77402_QGSII_flat_defaults_DAT210014\",\"type\":\"S0\",\"generationDate\":\"2021-04-16T10:53:09.711809Z\",\"metadata\":{\"hash\":\"e243c2c1c7ddb141fb5d6923c661f1bedde28f6dc8a91843cb128372f4c97a20\",\"location\":\"/S0_bga_10_77402_QGSII_flat_defaults/.metadata/.DAT210014.bz2.jsonld.20220701T110649.046679Z\"},\"rawData\":{\"hash\":\"8be1607a17068a658bad580dc167c13576a245217cdb771a5119d521dccc1db7\",\"location\":\"/S0_bga_10_77402_QGSII_flat_defaults/DAT210014.bz2\"},\"inputData\":{\"hash\":\"c418dc9e00a45b25b245ef010268c79b208d80f8ebe5ff1930a57f2e023dcafd\",\"location\":\"/S0_bga_10_77402_QGSII_flat_defaults/DAT210014-0014-00000000366.input\"},\"inputMetadata\":{\"hash\":\"598cb5eaff3ff6bb7b24fef9966c7e12777ad71c64382fa261a3b5e4af0a6632\",\"location\":\"/S0_bga_10_77402_QGSII_flat_defaults/.metadata/.DAT210014-0014-00000000366.input.jsonld.20220701T110644.615156Z\"},\"outputData\":{\"hash\":\"ec8512a206388d4560543484f1d94f7dc5e5b86e24d8f1cd0914f198e1b440da\",\"location\":\"/S0_bga_10_77402_QGSII_flat_defaults/DAT210014-0014-00000000366.lst.bz2\"},\"outputMetadata\":{\"hash\":\"b7815cf7b35626ba6300b6d6b6ed5f3f090c132810a78b045d1da7d1ae0b5fe4\",\"location\":\"/S0_bga_10_77402_QGSII_flat_defaults/.metadata/.DAT210014-0014-00000000366.lst.bz2.jsonld.20220701T110646.868333Z\"},\"siteName\":\"bga\",\"orcid\":\"https://orcid.org/0000-0001-6497-753X\",\"accessUrl\":[\"http://hdl.handle.net/21.12145/gi9Hc9c\",\"https://datahub.egi.eu/share/37b0a0d99cbae5791db93ababbef5b90chccda\"]}"]}' 
+        -c  '{"function": "CreateRecord","Args":["{\"Id\":\"S1_bga_60_77402_QGSII_flat_defaults_002010\",\"type\":\"S1\",\"generationDate\":\"2022-10-20T09:24:19.977221Z\",\"metadata\":{\"primary\":{\"hash\":\"85dec53ed1cb67e51053520dff6a3e9b5378ccaf357550d71407389b60c87111\",\"location\":\"/S1_bga_60_77402_QGSII_flat_defaults/.metadata/.002010.pri.bz2.jsonld\"},\"secondary\":{\"hash\":\"04382503d4532fe178a9421464ebf606a1f0995ce6816e68bb9c8a505eb55f39\",\"location\":\"/S1_bga_60_77402_QGSII_flat_defaults/.metadata/.002010.sec.bz2.jsonld\"}},\"rawData\":{\"primary\":{\"hash\":\"a8a73aa2be35267d8c7ab8cb70124de947fb72285cf48f979a4682fbfb94273f\",\"location\":\"/S1_bga_60_77402_QGSII_flat_defaults/002010.pri.bz2\"},\"secondary\":{\"hash\":\"cc48ac7c3f27cf1dbc67cae7d32e4948af7867068a3aa6597730a3ec32d335e3\",\"location\":\"/S1_bga_60_77402_QGSII_flat_defaults/002010.sec.bz2\"}},\"siteName\":\"bga\",\"orcid\":\"https://orcid.org/0000-0002-4559-8785\",\"accessUrl\":\"https://datahub.egi.eu/not_published_yet\"}"]}' 
 
         # -c '{"Args":["CreateRecord","{\"ID\": \"ESPOCH_nogps_2016_05_20_01h00\", \"Type\": \"L0\", \"GenerationDate\": \"2016 05_20_01:00:00\", \"Metadata\": \"6825e7e22be44f11bdcfa2baf4a76e1b56cb8066bbc678833af466b79395899e\", \"Rawdata\": \"852b399e581132110d385d1a30e71cf7be74202043c9e430ba3843e538f65969\", \"inputData\": null, \"inputMetadata\": null, \"outputData\": null, \"outputMetadata\": null, \"SiteName\": \"\\\"Escuela Superior Polit\\u00e9cnica de Chimborazo\\\"\", \"collaboratorName\": \"\\\"Mario Audelo\\\"\", \"orcid\": \"\\\"0000-0000-0000-0000\\\"\", \"accessUrl\": null}"]}'
 
@@ -276,21 +277,21 @@ chaincodeQuery() {
 
 
 # To execute everything
-# presetup
-# packageChaincode
+presetup
+packageChaincode
 
-# installChaincode
+installChaincode
 
-# queryInstalled 0
-# approveForMyOrg 0
-# checkCommitReadyness 0
+queryInstalled 0
+approveForMyOrg 0
+checkCommitReadyness 0
 
-# queryInstalled 1
-# approveForMyOrg 1
-# checkCommitReadyness 1
+queryInstalled 1
+approveForMyOrg 1
+checkCommitReadyness 1
 
 
-# commitChaincodeDefination 1
-# chaincodeInvoke 1
-# chaincodeInvoke2 1
+commitChaincodeDefination 1
+chaincodeInvoke 1
+chaincodeInvoke2 1
 chaincodeQuery

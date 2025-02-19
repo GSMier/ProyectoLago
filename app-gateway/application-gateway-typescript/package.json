@@ -22,9 +22,11 @@
         "@grpc/grpc-js": "^1.11.3",
         "@hyperledger/fabric-gateway": "^1.6.0",
         "@hyperledger/fabric-protos": "^0.1.0-dev.2300102001.1",
+        "bz2": "^1.0.1",
         "crypto": "^1.0.1",
         "fabric-protos": "^2.2.20",
-        "jsrsasign": "^11.1.0"
+        "jsrsasign": "^11.1.0",
+        "unbzip2-stream": "^1.4.3"
     },
     "devDependencies": {
         "@eslint/js": "^9.3.0",
