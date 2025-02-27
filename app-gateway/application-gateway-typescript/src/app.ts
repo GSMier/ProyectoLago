@@ -31,7 +31,7 @@ async function main(): Promise<void> {
         
     }
 
-    // await runCommand(command, args);
+    await runCommand(command, args);
 
 }
 

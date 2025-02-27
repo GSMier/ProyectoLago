@@ -10,7 +10,7 @@ presetup(){
     echo Finishing installing npm dependencies
 }
 
-presetup
+# presetup
 
 export PEER_ENDPOINT=localhost:7051
 export MSP_ID=$ORG0_MSPID
@@ -35,8 +35,8 @@ GetAllAssets(){
 
 pushd $APP_SRC_PATH
     # npm start update /root/blockchain/scripts/prueba.json
-    npm start history S0_bga_10_77402_QGSII_flat_defaults_DAT000703
-    # npm start getAllRecords
+    # npm start history S0_bga_10_77402_QGSII_flat_defaults_DAT000703
+    npm start getAllRecords
     # npm start delete S0_bga_10_77402_QGSII_flat_defaults_DAT000703
     # npm start update "002" "BlueNew" 5 "Prueba2" 10000
     # npm start create "002" "BlueNew" "Prueba2"

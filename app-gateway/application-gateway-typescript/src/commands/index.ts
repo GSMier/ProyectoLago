@@ -8,6 +8,7 @@ import qscc from './qscc'
 import history from './history'
 import verify from './verify'
 import verifyOne from './verifyOne'
+import getTxById from './getByTxId'
 
 export type Command = (gateway: Gateway, args: string[] ) => Promise<void | string>;
 
@@ -20,6 +21,7 @@ export const commands: Record<string, Command> = {
     qscc,
     history,
     verify,
-    verifyOne
+    verifyOne,
+    getTxById
     
 };

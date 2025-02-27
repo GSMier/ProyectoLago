@@ -1,8 +1,10 @@
 services:
   app-gateway:
     container_name: app-gateway-lago
-    image: sebstiian/lago-app-gateway
+    image: sebstiian/lagochain-app
+    # command: sh -c 'npm start getAllRecords'
     command: sh -c 'npm start verify $$FOLDER_PATH'
+    # command: sh -c 'npm start getTxById d401e8267ad98f345af8c8dbd5937f0c803d63dc29609cf133a87b2057bbcf09'
     environment:
       - PEER_ENDPOINT=peer0.uis:7051
       - MSP_ID=${ORG0_MSPID}
