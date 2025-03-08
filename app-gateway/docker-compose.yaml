@@ -17,7 +17,7 @@ services:
       - JSONFILE=/var/data/prueba.json
       - FOLDER_PATH=/var/data
     extra_hosts:
-      - "peer0.uis:host-gateway"
+      - "peer0.uis:10.1.14.228"
     volumes:
       - /root/blockchain/channel/crypto-config/peerOrganizations:/etc/data
       - /root/blockchain/test-data:/var/data
