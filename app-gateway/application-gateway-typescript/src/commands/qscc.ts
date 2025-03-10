@@ -43,11 +43,14 @@ export default async function main(gateway: Gateway): Promise<void> {
                         verifier.update(Buffer.from(envelope.getPayload_asU8()));
                         verifier.end();
         
-                        const isValid = verifier.verify(Buffer.from(creator.getIdBytes()), Buffer.from(signature));
+
+                        const isValid = verifier.verify(Buffer.from(creator.getIdBytes() as Uint8Array), Buffer.from(signature));
         
                         if(!isValid) {
                           throw new Error(`There was a tampering in the block ${i} of this peer at the transaction txId: ${getTxId}`);
                         }
+                  } else {
+                    console.log('There is no transaction data in the block event.');
                   }
                 } else {
                   console.log('There is no transaction data in the block event.');

@@ -22,13 +22,16 @@ async function main(): Promise<void> {
         throw new Error(`Unknown command: ${commandName}`);
     }
 
-    try {
-        await runCommand(commands.qscc!, args);
-        
-    } catch (error) {
-        console.log(error);
-        return;
-        
+    if(command !== commands.getTxId){
+        try {
+            await runCommand(commands.qscc!, args);
+            
+        } catch (error) {
+            console.log(error);
+            return;
+            
+        }
+
     }
 
     await runCommand(command, args);
