@@ -1,6 +1,6 @@
 . env-var.sh
 . utils.sh
-source /root/.env
+source ~/.env
 
 CHANNEL_NAME="lagochannel"
 CC_RUNTIME_LANGUAGE="node"
@@ -292,6 +292,4 @@ checkCommitReadyness 1
 
 
 commitChaincodeDefination 1
-chaincodeInvoke 1
-chaincodeInvoke2 1
 chaincodeQuery

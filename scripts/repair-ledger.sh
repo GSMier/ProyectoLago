@@ -1,6 +1,6 @@
 . env-var.sh
 . utils.sh
-source /root/.env
+source ~/.env
 CHANNEL_NAME='lagochannel'
 docker stop peer0.uis
 

@@ -1,5 +1,5 @@
 APP_SRC_PATH=../app-gateway/application-gateway-typescript
-source /root/.env
+source ~/.env
 
 presetup(){
     echo Installing npm packages ...
@@ -42,4 +42,36 @@ pushd $APP_SRC_PATH
     # npm start create "002" "BlueNew" "Prueba2"
 popd
 }
-GetAllAssets    
+# GetAllAssets    
+
+        docker run \
+            --env PEER_ENDPOINT=${PEER0_ORG0_HOST}:${PEER0_ORG0_PORT_GENERAL} \
+            --env MSP_ID=${ORG0_MSPID} \
+            --env CERT_DIRECTORY_PATH=/etc/data/${ORG0_NAME}/users/${USER0_ORG0_NAME}/msp/signcerts/ \
+            --env KEY_DIRECTORY_PATH=/etc/data/${ORG0_NAME}/users/${USER0_ORG0_NAME}/msp/keystore/ \
+            --env TLS_CERT_PATH=/etc/data/${ORG0_NAME}/tlsca/tlsca.${ORG0_NAME}-cert.pem \
+            --env CHANNEL_NAME=lagochannel \
+            --env CHAINCODE_NAME=scientific-data-collection \
+            --env PEER_HOST_ALIAS=${PEER0_ORG0_HOST} \
+            --add-host=$PEER0_ORG0_HOST:host-gateway \
+            -v /home/gianm/ProyectoLago/channel/crypto-config/peerOrganizations:/etc/data \
+            sebstiian/lagochain-app:1.1.0 \
+            sh -c "npm start getAllRecords"
+            # -v ${FILE}:/var/data/${FILE_NAME} \
+
+docker run \
+    --env PEER_ENDPOINT=${PEER0_ORG0_HOST}:${PEER0_ORG0_PORT_GENERAL} \
+    --env MSP_ID=${ORG0_MSPID} \
+    --env CERT_DIRECTORY_PATH=/etc/data/${ORG0_NAME}/users/${USER0_ORG0_NAME}/msp/signcerts/ \
+    --env KEY_DIRECTORY_PATH=/etc/data/${ORG0_NAME}/users/${USER0_ORG0_NAME}/msp/keystore/ \
+    --env TLS_CERT_PATH=/etc/data/${ORG0_NAME}/tlsca/tlsca.${ORG0_NAME}-cert.pem \
+    --env CHANNEL_NAME=lagochannel \
+    --env CHAINCODE_NAME=scientific-data-collection \
+    --env PEER_HOST_ALIAS=${PEER0_ORG0_HOST} \
+    --add-host=$PEER0_ORG0_HOST:host-gateway \
+    -v /home/gianm/ProyectoLago/channel/crypto-config/peerOrganizations:/etc/data \
+    -v ${FILE}:/var/data/${FILE_NAME} \
+    -v /home/gianm/lagoData:/var/data \
+    sebstiian/lagochain-app:1.1.0 \
+    sh -c "npm start create /var/data/${FILE_NAME}"
+

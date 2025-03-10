@@ -1,8 +1,8 @@
 pushd ../
-docker compose --env-file /root/.env down
+docker compose --env-file ~/.env down
 docker container prune
 docker volume rm -f $(docker volume ls -q)
-docker compose --env-file /root/.env up -d
+docker compose --env-file ~/.env up -d
 popd
 
 

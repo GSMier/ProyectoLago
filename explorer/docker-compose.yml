@@ -3,7 +3,7 @@ volumes:
   walletstore:
 
 networks:
-  blockchain_test:
+  proyectolago_test:
     external: true
 
 services:
@@ -23,7 +23,7 @@ services:
     volumes:
       - data:/var/lib/postgresql/data
     networks:
-      - blockchain_test
+      - proyectolago_test
   explorer.mynetwork.com:
     image: ghcr.io/hyperledger-labs/explorer:2.0.0
     container_name: explorer.mynetwork.com
@@ -49,4 +49,4 @@ services:
       explorerdb.mynetwork.com:
         condition: service_healthy 
     networks:
-      - blockchain_test
+      - proyectolago_test

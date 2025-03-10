@@ -1,5 +1,5 @@
 . utils.sh
-source /root/.env
+source ~/.env
 
 
 export CORE_PEER_TLS_ENABLED=true

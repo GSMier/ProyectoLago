@@ -2,9 +2,9 @@ services:
   app-gateway:
     container_name: app-gateway-lago
     image: sebstiian/lagochain-app
-    # command: sh -c 'npm start getAllRecords'
-    command: sh -c 'npm start verify $$FOLDER_PATH'
-    # command: sh -c 'npm start getTxById d401e8267ad98f345af8c8dbd5937f0c803d63dc29609cf133a87b2057bbcf09'
+    command: sh -c 'npm start getAllRecords'
+    #command: sh -c 'npm start verify $$FOLDER_PATH'
+    #command: sh -c 'npm start getTxById d401e8267ad98f345af8c8dbd5937f0c803d63dc29609cf133a87b2057bbcf09'
     environment:
       - PEER_ENDPOINT=peer0.uis:7051
       - MSP_ID=${ORG0_MSPID}
@@ -19,6 +19,6 @@ services:
     extra_hosts:
       - "peer0.uis:host-gateway"
     volumes:
-      - /root/blockchain/channel/crypto-config/peerOrganizations:/etc/data
-      - /root/blockchain/test-data:/var/data
-      - /root/blockchain/scripts/prueba.json:/var/data/prueba.json
+      - /home/gianm/ProyectoLago/channel/crypto-config/peerOrganizations:/etc/data
+      - /home/gianm/ProyectoLago/test-data:/var/data
+      - /home/gianm/ProyectoLago/scripts/prueba.json:/var/data/prueba.json

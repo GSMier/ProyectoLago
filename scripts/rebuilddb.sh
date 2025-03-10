@@ -1,6 +1,6 @@
 . utils.sh
 . env-var.sh
-source /root/.env
+source ~/.env
 
 
 
