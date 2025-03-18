@@ -5,6 +5,11 @@ source ~/.env
 readJsonFilesFromFolder(){
 
 FOLDER_PATH=$1
+ORG_MSPID=$2
+PEER_HOST=$3
+PEER_PORT=$4
+ORG_NAME=$5
+USER=$6
 # Check if the folder exists
 if [ ! -d "$FOLDER_PATH" ]; then
     echo "Folder not found at ${FOLDER_PATH}"
@@ -20,15 +25,15 @@ for FILE in "$FOLDER_PATH"/*.json; do
 
         # Add your file processing logic here
         docker run \
-            --env PEER_ENDPOINT=${PEER0_ORG0_HOST}:${PEER0_ORG0_PORT_GENERAL} \
-            --env MSP_ID=${ORG0_MSPID} \
-            --env CERT_DIRECTORY_PATH=/etc/data/${ORG0_NAME}/users/${USER0_ORG0_NAME}/msp/signcerts/ \
-            --env KEY_DIRECTORY_PATH=/etc/data/${ORG0_NAME}/users/${USER0_ORG0_NAME}/msp/keystore/ \
-            --env TLS_CERT_PATH=/etc/data/${ORG0_NAME}/tlsca/tlsca.${ORG0_NAME}-cert.pem \
+            --env PEER_ENDPOINT=${PEER_HOST}:${PEER_PORT} \
+            --env MSP_ID=${ORG_MSPID} \
+            --env CERT_DIRECTORY_PATH=/etc/data/${ORG_NAME}/users/${USER}/msp/signcerts/ \
+            --env KEY_DIRECTORY_PATH=/etc/data/${ORG_NAME}/users/${USER}/msp/keystore/ \
+            --env TLS_CERT_PATH=/etc/data/${ORG_NAME}/tlsca/tlsca.${ORG_NAME}-cert.pem \
             --env CHANNEL_NAME=lagochannel \
             --env CHAINCODE_NAME=scientific-data-collection \
-            --env PEER_HOST_ALIAS=${PEER0_ORG0_HOST} \
-            --add-host=$PEER0_ORG0_HOST:host-gateway \
+            --env PEER_HOST_ALIAS=${PEER_HOST} \
+            --add-host=$PEER_HOST:host-gateway \
             -v /home/gianm/ProyectoLago/channel/crypto-config/peerOrganizations:/etc/data \
             -v ${FILE}:/var/data/${FILE_NAME} \
             -v /home/gianm/lagoData:/var/data \
@@ -43,8 +48,8 @@ done
 echo "All JSON files processed."
 }
 
-readJsonFilesFromFolder /home/gianm/LAGO-data/simulaciones/S0/S0_bga_10_77402_QGSII_flat_defaults/output
-readJsonFilesFromFolder /home/gianm/LAGO-data/simulaciones/S1/S1_bga_60_77402_QGSII_flat_defaults/output
-readJsonFilesFromFolder /home/gianm/LAGO-data/mediciones/L0/chimbito/output
+readJsonFilesFromFolder  /home/gianm/LAGO-data/simulaciones/S0/S0_bga_10_77402_QGSII_flat_defaults/output $ORG0_MSPID $PEER0_ORG0_HOST $PEER0_ORG0_PORT_GENERAL $ORG0_NAME $USER1_ORG0_NAME
+readJsonFilesFromFolder /home/gianm/LAGO-data/simulaciones/S1/S1_bga_60_77402_QGSII_flat_defaults/output  $ORG0_MSPID $PEER1_ORG0_HOST $PEER1_ORG0_PORT_GENERAL $ORG0_NAME $USER2_ORG0_NAME
+readJsonFilesFromFolder /home/gianm/LAGO-data/mediciones/L0/chimbito/output $ORG1_MSPID $PEER0_ORG1_HOST $PEER0_ORG1_PORT_GENERAL $ORG1_NAME $USER1_ORG1_NAME
 
 
