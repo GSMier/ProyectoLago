@@ -1,16 +1,6 @@
 networks:
   test:
     driver: bridge
-volumes:
-  orderer0:
-  orderer1:
-  orderer2:
-  peer0.uis:
-  peer1.uis:
-  peer2.uis:
-  peer0.espoch:
-  peer1.espoch:
-  peer2.espoch:
 services:
   orderer0:
     container_name: ${ORDERER0_HOST}
@@ -58,7 +48,9 @@ services:
     volumes:
       - ./channel/crypto-config/ordererOrganizations/${ORG_ORDERER_NAME}/orderers/${ORDERER0_HOST}/msp:/var/hyperledger/orderer/msp
       - ./channel/crypto-config/ordererOrganizations/${ORG_ORDERER_NAME}/orderers/${ORDERER0_HOST}/tls:/var/hyperledger/orderer/tls
-      - orderer0:/var/hyperledger/production/orderer
+      # - orderer0:/var/hyperledger/production/orderer
+      - ./orderers/orderer0:/var/hyperledger/production/orderer
+
 
   orderer1:
     container_name: ${ORDERER1_HOST}
@@ -105,7 +97,8 @@ services:
     volumes:
       - ./channel/crypto-config/ordererOrganizations/${ORG_ORDERER_NAME}/orderers/${ORDERER1_HOST}/msp:/var/hyperledger/orderer/msp
       - ./channel/crypto-config/ordererOrganizations/${ORG_ORDERER_NAME}/orderers/${ORDERER1_HOST}/tls:/var/hyperledger/orderer/tls
-      - orderer1:/var/hyperledger/production/orderer
+      # - orderer1:/var/hyperledger/production/orderer
+      - ./orderers/orderer1:/var/hyperledger/production/orderer
 
 
   orderer2:
@@ -153,7 +146,9 @@ services:
     volumes:
       - ./channel/crypto-config/ordererOrganizations/${ORG_ORDERER_NAME}/orderers/${ORDERER2_HOST}/msp:/var/hyperledger/orderer/msp
       - ./channel/crypto-config/ordererOrganizations/${ORG_ORDERER_NAME}/orderers/${ORDERER2_HOST}/tls:/var/hyperledger/orderer/tls
-      - orderer2:/var/hyperledger/production/orderer
+      # - orderer2:/var/hyperledger/production/orderer
+      - ./orderers/orderer2:/var/hyperledger/production/orderer
+
 
 
 
@@ -208,7 +203,8 @@ services:
       - ./channel/crypto-config/peerOrganizations/${ORG0_NAME}/peers/${PEER0_ORG0_NAME}/msp:/etc/hyperledger/crypto/peer/msp
       - ./channel/crypto-config/peerOrganizations/${ORG0_NAME}/peers/${PEER0_ORG0_NAME}/tls:/etc/hyperledger/crypto/peer/tls
       - /var/run/:/host/var/run/
-      - peer0.uis:/var/hyperledger/production
+      # - peer0.uis:/var/hyperledger/production
+      - ./peers/peer0.uis:/var/hyperledger/production
       # - ./channel/:/etc/hyperledger/channel/
     networks:
       - test
@@ -236,6 +232,8 @@ services:
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=${PEER1_ORG0_HOST}:${PEER1_ORG0_PORT_GENERAL}
       - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
       - CORE_PEER_GOSSIP_BOOTSTRAP=${PEER0_ORG0_HOST}:${PEER0_ORG0_PORT_GENERAL}
+      - CORE_PEER_GOSSIP_STATE_ENABLED=true
+
 
       - CORE_METRICS_PROVIDER=prometheus
       - CORE_PEER_TLS_ENABLED=true
@@ -249,7 +247,8 @@ services:
       - ./channel/crypto-config/peerOrganizations/${ORG0_NAME}/peers/${PEER1_ORG0_NAME}/msp:/etc/hyperledger/crypto/peer/msp
       - ./channel/crypto-config/peerOrganizations/${ORG0_NAME}/peers/${PEER1_ORG0_NAME}/tls:/etc/hyperledger/crypto/peer/tls
       - /var/run/:/host/var/run/
-      - peer1.uis:/var/hyperledger/production
+      # - peer1.uis:/var/hyperledger/production
+      - ./peers/peer1.uis:/var/hyperledger/production
 
     networks:
       - test
@@ -277,6 +276,8 @@ services:
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=${PEER2_ORG0_HOST}:${PEER2_ORG0_PORT_GENERAL}
       - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
       - CORE_PEER_GOSSIP_BOOTSTRAP=${PEER0_ORG0_HOST}:${PEER0_ORG0_PORT_GENERAL}
+      - CORE_PEER_GOSSIP_STATE_ENABLED=true
+
 
       - CORE_METRICS_PROVIDER=prometheus
       - CORE_PEER_TLS_ENABLED=true
@@ -290,7 +291,9 @@ services:
       - ./channel/crypto-config/peerOrganizations/${ORG0_NAME}/peers/${PEER2_ORG0_NAME}/msp:/etc/hyperledger/crypto/peer/msp
       - ./channel/crypto-config/peerOrganizations/${ORG0_NAME}/peers/${PEER2_ORG0_NAME}/tls:/etc/hyperledger/crypto/peer/tls
       - /var/run/:/host/var/run/
-      - peer2.uis:/var/hyperledger/production
+      # - peer2.uis:/var/hyperledger/production
+      - ./peers/peer2.uis:/var/hyperledger/production
+
 
     networks:
       - test
@@ -327,6 +330,8 @@ services:
       - CORE_PEER_GOSSIP_ORGLEADER=false
       - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=${PEER0_ORG1_HOST}:${PEER0_ORG1_PORT_GENERAL}
+      - CORE_PEER_GOSSIP_STATE_ENABLED=true
+
 
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=${PEER0_ORG1_COUCHDB_HOST}:5984
@@ -346,7 +351,9 @@ services:
       - ./channel/crypto-config/peerOrganizations/${ORG1_NAME}/peers/${PEER0_ORG1_NAME}/msp:/etc/hyperledger/crypto/peer/msp
       - ./channel/crypto-config/peerOrganizations/${ORG1_NAME}/peers/${PEER0_ORG1_NAME}/tls:/etc/hyperledger/crypto/peer/tls
       - /var/run/:/host/var/run/
-      - peer0.espoch:/var/hyperledger/production
+      # - peer0.espoch:/var/hyperledger/production
+      - ./peers/peer0.espoch:/var/hyperledger/production
+
 
       # - /var/pavan/peer0-espoch:/var/hyperledger/production
       # - ./channel/:/etc/hyperledger/channel/
@@ -376,6 +383,8 @@ services:
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=${PEER1_ORG1_HOST}:${PEER1_ORG1_PORT_GENERAL}
       - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
       - CORE_PEER_GOSSIP_BOOTSTRAP=${PEER0_ORG1_HOST}:${PEER0_ORG1_PORT_GENERAL}
+      - CORE_PEER_GOSSIP_STATE_ENABLED=true
+
 
       - CORE_METRICS_PROVIDER=prometheus
       - CORE_PEER_TLS_ENABLED=true
@@ -389,7 +398,9 @@ services:
       - ./channel/crypto-config/peerOrganizations/${ORG1_NAME}/peers/${PEER1_ORG1_NAME}/msp:/etc/hyperledger/crypto/peer/msp
       - ./channel/crypto-config/peerOrganizations/${ORG1_NAME}/peers/${PEER1_ORG1_NAME}/tls:/etc/hyperledger/crypto/peer/tls
       - /var/run/:/host/var/run/
-      - peer1.espoch:/var/hyperledger/production
+      # - peer1.espoch:/var/hyperledger/production
+      - ./peers/peer1.espoch:/var/hyperledger/production
+
 
     networks:
       - test
@@ -417,6 +428,7 @@ services:
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=${PEER2_ORG1_HOST}:${PEER2_ORG1_PORT_GENERAL}
       - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
       - CORE_PEER_GOSSIP_BOOTSTRAP=${PEER0_ORG1_HOST}:${PEER0_ORG1_PORT_GENERAL}
+      - CORE_PEER_GOSSIP_STATE_ENABLED=true
 
       - CORE_METRICS_PROVIDER=prometheus
       - CORE_PEER_TLS_ENABLED=true
@@ -430,7 +442,9 @@ services:
       - ./channel/crypto-config/peerOrganizations/${ORG1_NAME}/peers/${PEER2_ORG1_NAME}/msp:/etc/hyperledger/crypto/peer/msp
       - ./channel/crypto-config/peerOrganizations/${ORG1_NAME}/peers/${PEER2_ORG1_NAME}/tls:/etc/hyperledger/crypto/peer/tls
       - /var/run/:/host/var/run/
-      - peer2.espoch:/var/hyperledger/production
+      # - peer2.espoch:/var/hyperledger/production
+      - ./peers/peer2.espoch:/var/hyperledger/production
+
 
     networks:
       - test
