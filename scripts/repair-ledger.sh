@@ -2,18 +2,22 @@
 . utils.sh
 source ~/.env
 CHANNEL_NAME='lagochannel'
-docker stop peer0.uis
+CC_NAME="scientific-data-collection"
 
-rm -rf /var/lib/docker/volumes/blockchain_${PEER0_ORG0_HOST}/_data/ledgersData/
-rm -rf /var/lib/docker/volumes/blockchain_${PEER0_ORG0_HOST}/_data/chaincodes/
+docker start ${PEER0_ORG0_HOST} 
+docker exec ${PEER0_ORG0_HOST} chmod -R 777 /var/hyperledger/production
+docker stop ${PEER0_ORG0_HOST}
 
-docker start peer0.uis
+rm -rf ../peers/${PEER0_ORG0_HOST}/ledgersData/
+rm -rf ../peers/${PEER0_ORG0_HOST}/chaincodes/
 
-FABRIC_CFG_PATH=$PWD/../channel/config
+docker start ${PEER0_ORG0_HOST}
+docker exec ${PEER1_ORG0_HOST} chmod -R 777 /var/hyperledger/production
+
 
 sleep 10
+FABRIC_CFG_PATH=$PWD/../channel/config
 setGlobals 0 $PEER0_ORG0_PORT_GENERAL
 peer channel join -b ../artifacts/${CHANNEL_NAME}.block
-rm -rf /var/lib/docker/volumes/${PEER0_ORG0_HOST}/_data/ledgersData/fileLock
-sudo docker exec peer0.uis /usr/local/bin/peer node rebuild-dbs
-docker restart peer0.uis
+
+
