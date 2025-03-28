@@ -5,16 +5,17 @@ source ~/.env
 export FABRIC_CA_CLIENT_HOME=/home/gianm/ProyectoLago/channel/crypto-config/peerOrganizations/uis
 export FABRIC_CA_CLIENT_TLS_CERTFILES=/home/gianm/ProyectoLago/channel/certificates/fabric-ca/uis/tls-cert.pem
 
-CERT=/home/gianm/ProyectoLago/channel/crypto-config/peerOrganizations/uis/users/A.J.Rubio-Montero/msp/signcerts/cert.pem
+CERT=/home/gianm/ProyectoLago/channel/crypto-config/peerOrganizations/uis/users/prueba-user1/msp/signcerts/cert.pem
 serial=$(openssl x509 -in $CERT -serial -noout | cut -d "=" -f 2)
 aki=$(openssl x509 -in $CERT -noout -text | awk '/Authority Key Identifier/ {getline; print $0}')
+echo $aki
 CHANNEL_NAME="lagochannel"
 
 fabric-ca-client revoke -s $serial -a $aki -M ./msp --gencrl
 # fabric-ca-client identity list
 # fabric-ca-client revoke -e ${USER2_ORG0_NAME} -M  ./msp --caname "ca.${ORG0_NAME}" --gencrl
 # fabric-ca-client gencrl -M ./msp
-# cat /root/blockchain/channel/crypto-config/peerOrganizations/uis/msp/crls/crl.pem | base64 -w 0 > user_cert_base64
+cat /home/gianm/ProyectoLago/channel/crypto-config/peerOrganizations/uis/msp/crls/crl.pem | base64 -w 0 > user_cert_base64
 revokeFromFabricNetwork() {
     setGlobals 0
 
