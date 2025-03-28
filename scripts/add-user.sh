@@ -1,8 +1,8 @@
 
 source ~/.env
 
-NAME_USER_PRUEBA1=prueba-user
-PW_USER_PRUEBA1=prueba-user-pw
+NAME_USER_PRUEBA1=prueba-user1
+PW_USER_PRUEBA1=prueba-user-pw1
 
 
 NAME_USER_PRUEBA2=prueba-user-2
