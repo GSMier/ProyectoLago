@@ -11,7 +11,7 @@ for FILE in "$FOLDER_PATH"/*.block; do
 
 
     FILE_NAME=$(basename "$FILE" )
-    npx bcverifier -n fabric-block -c $FILE -o results-${FILE_NAME}.json start
+    npx bcverifier -n fabric-block -c $FILE -b 434 -o results-${FILE_NAME}.json start
 
 
 
