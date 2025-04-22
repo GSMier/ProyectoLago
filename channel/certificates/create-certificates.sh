@@ -1,4 +1,4 @@
-source /root/.env
+source ~/.env
 createCertificatesTLSCA(){
 
   echo

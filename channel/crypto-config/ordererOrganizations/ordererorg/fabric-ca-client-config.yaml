@@ -117,7 +117,7 @@ csr:
       O: Hyperledger
       OU: Fabric
   hosts:
-    - proyectoLAGO
+    - mxrtinez-sc3
 
 #############################################################################
 #  Registration section used to register a new identity with fabric-ca server

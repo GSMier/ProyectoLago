@@ -44,34 +44,38 @@ popd
 }
 # GetAllAssets    
 
-        docker run \
-            --env PEER_ENDPOINT=${PEER0_ORG0_HOST}:${PEER0_ORG0_PORT_GENERAL} \
-            --env MSP_ID=${ORG0_MSPID} \
-            --env CERT_DIRECTORY_PATH=/etc/data/${ORG0_NAME}/users/${USER0_ORG0_NAME}/msp/signcerts/ \
-            --env KEY_DIRECTORY_PATH=/etc/data/${ORG0_NAME}/users/${USER0_ORG0_NAME}/msp/keystore/ \
-            --env TLS_CERT_PATH=/etc/data/${ORG0_NAME}/tlsca/tlsca.${ORG0_NAME}-cert.pem \
-            --env CHANNEL_NAME=lagochannel \
-            --env CHAINCODE_NAME=scientific-data-collection \
-            --env PEER_HOST_ALIAS=${PEER0_ORG0_HOST} \
-            --add-host=$PEER0_ORG0_HOST:host-gateway \
-            -v /home/gianm/ProyectoLago/channel/crypto-config/peerOrganizations:/etc/data \
-            sebstiian/lagochain-app:1.1.0 \
-            sh -c "npm start getAllRecords"
-            # -v ${FILE}:/var/data/${FILE_NAME} \
+    docker run \
+        --env PEER_ENDPOINT=${PEER0_ORG0_HOST}:${PEER0_ORG0_PORT_GENERAL} \
+        --env MSP_ID=${ORG0_MSPID} \
+        --env CERT_DIRECTORY_PATH=/etc/data/${ORG0_NAME}/users/${USER0_ORG0_NAME}/msp/signcerts/ \
+        --env KEY_DIRECTORY_PATH=/etc/data/${ORG0_NAME}/users/${USER0_ORG0_NAME}/msp/keystore/ \
+        --env TLS_CERT_PATH=/etc/data/${ORG0_NAME}/tlsca/tlsca.${ORG0_NAME}-cert.pem \
+        --env CHANNEL_NAME=lagochannel \
+        --env CHAINCODE_NAME=scientific-data-collection \
+        --env PEER_HOST_ALIAS=${PEER0_ORG0_HOST} \
+        --add-host=$PEER0_ORG0_HOST:host-gateway \
+        -v /home/gianm/ProyectoLago/channel/crypto-config/peerOrganizations:/etc/data \
+        -v /home/gianm/traceability/S0/output/UPDATE-1.json:/var/data/UPDATE-1.json \
+        sebstiian/lagochain-app:1.1.0 \
+        sh -c "npm start getAllRecords"
+        # sh -c "npm start history S0_bga_10_77402_QGSII_flat_defaults_DAT190014"
+        # sh -c "npm start update /var/data/UPDATE-1.json"
+        # sh -c "npm start getTxById 3aeb21c7091b85c298a3e4f57ec166a13ac005d109dd38f6da97162e61725172"
+        # -v /home/gianm/ProyectoLago/tampered-data:/var/data \
 
-docker run \
-    --env PEER_ENDPOINT=${PEER0_ORG0_HOST}:${PEER0_ORG0_PORT_GENERAL} \
-    --env MSP_ID=${ORG0_MSPID} \
-    --env CERT_DIRECTORY_PATH=/etc/data/${ORG0_NAME}/users/${USER0_ORG0_NAME}/msp/signcerts/ \
-    --env KEY_DIRECTORY_PATH=/etc/data/${ORG0_NAME}/users/${USER0_ORG0_NAME}/msp/keystore/ \
-    --env TLS_CERT_PATH=/etc/data/${ORG0_NAME}/tlsca/tlsca.${ORG0_NAME}-cert.pem \
-    --env CHANNEL_NAME=lagochannel \
-    --env CHAINCODE_NAME=scientific-data-collection \
-    --env PEER_HOST_ALIAS=${PEER0_ORG0_HOST} \
-    --add-host=$PEER0_ORG0_HOST:host-gateway \
-    -v /home/gianm/ProyectoLago/channel/crypto-config/peerOrganizations:/etc/data \
-    -v ${FILE}:/var/data/${FILE_NAME} \
-    -v /home/gianm/lagoData:/var/data \
-    sebstiian/lagochain-app:1.1.0 \
-    sh -c "npm start create /var/data/${FILE_NAME}"
+# docker run \
+#     --env PEER_ENDPOINT=${PEER0_ORG0_HOST}:${PEER0_ORG0_PORT_GENERAL} \
+#     --env MSP_ID=${ORG0_MSPID} \
+#     --env CERT_DIRECTORY_PATH=/etc/data/${ORG0_NAME}/users/${USER0_ORG0_NAME}/msp/signcerts/ \
+#     --env KEY_DIRECTORY_PATH=/etc/data/${ORG0_NAME}/users/${USER0_ORG0_NAME}/msp/keystore/ \
+#     --env TLS_CERT_PATH=/etc/data/${ORG0_NAME}/tlsca/tlsca.${ORG0_NAME}-cert.pem \
+#     --env CHANNEL_NAME=lagochannel \
+#     --env CHAINCODE_NAME=scientific-data-collection \
+#     --env PEER_HOST_ALIAS=${PEER0_ORG0_HOST} \
+#     --add-host=$PEER0_ORG0_HOST:host-gateway \
+#     -v /home/gianm/ProyectoLago/channel/crypto-config/peerOrganizations:/etc/data \
+#     -v /home/gianm/ProyectoLago/scripts/prueba.json:/var/data/prueba.json \
+#     -v /home/gianm/lagoData:/var/data \
+#     sebstiian/lagochain-app:1.1.0 \
+#     sh -c "npm start create /var/data/prueba.json"
 
